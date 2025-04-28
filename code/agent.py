@@ -1,3 +1,5 @@
+# Import necessary libraries
+
 import json
 import requests
 import math
@@ -10,17 +12,18 @@ RED = "\033[91m"
 RESET = "\033[0m"
 BOLD = "\033[1m"
 
-# Initialize OpenAI client for local model access
+
+# Connect to local Ollama server (running Llama3.2 model)
 client = OpenAI(
     base_url='http://localhost:11434/v1',
-    api_key='ollama',
+    api_key='ollama',  # dummy key (Ollama ignores it)
 )
 
 # Set hardcoded current location (Raleigh, NC)
 CURRENT_LAT = 35.7796
 CURRENT_LON = -78.6382
 
-# Define system behavior for the agent
+# System prompt to guide LLM behavior
 system_prompt = (
     "You are a helpful travel assistant. "
     "Think step-by-step internally to identify the location and reason about it, "
@@ -60,7 +63,8 @@ def build_initial_messages(user_input):
 
 # Helper: Geocode destination using OpenStreetMap
 def geocode_location(location_query):
-    headers = {'User-Agent': 'SimpleAgent/1.0 (your_email@example.com)'}
+    """Use OpenStreetMap Nominatim API to convert a city name into lat/lon."""
+    headers = {'User-Agent': 'SimpleAgent/1.0'}
     geo = requests.get(f"https://nominatim.openstreetmap.org/search?q={location_query}&format=json", headers=headers).json()
     if geo:
         return float(geo[0]['lat']), float(geo[0]['lon'])
@@ -77,6 +81,7 @@ def haversine_distance(lat1, lon1, lat2, lon2):
 
 # 🛠 Tool: Find distance between Raleigh and user location
 def calculate_distance_tool(destination_query):
+    """Helper function for calculating distance from Raleigh, NC."""
     lat2, lon2 = geocode_location(destination_query)
     if lat2 is None or lon2 is None:
         return {"error": "Could not find destination."}
@@ -126,10 +131,10 @@ def get_final_llm_response(messages):
 
 # Format the assistant final user-facing answer
 def format_final_output(location_name, facts_list, distance_miles):
-    facts_section = f"Facts about {location_name}:\n"
+    facts_section = f"{BOLD}{BLUE}Facts about {location_name}:\n\n{RESET}"
     for fact in facts_list:
-        facts_section += f"\u2022 {fact.strip()}\n"
-    distance_section = f"\nDistance from Raleigh, NC:\n{distance_miles} miles"
+        facts_section += f"{BLUE}\u2022 {fact.strip()}\n{RESET}"
+    distance_section = f"{BOLD}{BLUE}\nDistance from Raleigh, NC: {RESET}{BLUE}{distance_miles} miles{RESET}"
     return f"{facts_section}{distance_section}"
 
 # ✨ Final user-visible formatted output
@@ -145,15 +150,15 @@ def display_final_response(final_completion, tool_result):
 
     if facts and "distance_miles" in tool_result:
         final_output = format_final_output(tool_result.get("destination", "Destination"), facts, tool_result.get("distance_miles"))
-        print(f"\n{GREEN}Assistant Final Response:{RESET}\n{BOLD}{final_output}{RESET}")
+        print(f"\n{GREEN}Assistant Final Response:{RESET}\n\n{final_output}")
     else:
-        print(f"\n{GREEN}Assistant Final Response:{RESET}\n{BOLD}{raw_output}{RESET}")
+        print(f"\n{GREEN}Assistant Final Response:{RESET}\n\n{raw_output}")
 
 # Direct output if no tool was needed
 def display_direct_response(completion):
-    print(f"\n{GREEN}Assistant Final Response:{RESET}\n{BOLD}{completion.choices[0].message.content}{RESET}")
+    print(f"\n{GREEN}Assistant Final Response:{RESET}\n{BLUE}{completion.choices[0].message.content}{RESET}")
 
-# Main user interaction loop
+# 🧑 Main user interaction loop
 print("\nTravel Assistant ready! (Type 'exit' to quit)")
 
 while True:
@@ -179,5 +184,8 @@ while True:
         display_final_response(final_completion, tool_result)
     else:
         display_direct_response(completion)
+
+
+
 
 
