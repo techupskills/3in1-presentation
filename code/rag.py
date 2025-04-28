@@ -1,11 +1,11 @@
 # Import necessary libraries
 import os
 import json
-import math
 import requests
+import math
+from openai import OpenAI
 import chromadb
 import pdfplumber
-from openai import OpenAI
 from sentence_transformers import SentenceTransformer
 from chromadb.utils import embedding_functions
 
@@ -15,7 +15,7 @@ GREEN = "\033[92m"
 RED = "\033[91m"
 RESET = "\033[0m"
 BOLD = "\033[1m"
-GRAY = "\033[90m"
+
 
 # Connect to local Ollama server (running Llama3.2 model)
 client = OpenAI(
@@ -23,7 +23,7 @@ client = OpenAI(
     api_key='ollama',  # dummy key (Ollama ignores it)
 )
 
-# Hardcoded current location (Raleigh, NC)
+# Set hardcoded current location (Raleigh, NC)
 CURRENT_LAT = 35.7796
 CURRENT_LON = -78.6382
 
@@ -42,7 +42,7 @@ travel_tools = [
         "type": "function",
         "function": {
             "name": "calculate_distance_tool",
-            "description": "Calculate straight-line distance from Raleigh to a city.",
+            "description": "Calculate straight-line (haversine) distance in miles from Raleigh, NC to a provided destination.",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -117,6 +117,7 @@ def fallback_detect_city_with_llm(text):
     raw = completion.choices[0].message.content
     return raw.strip()
 
+# Helper: Geocode destination using OpenStreetMap
 def geocode_location(location_query):
     """Use OpenStreetMap Nominatim API to convert a city name into lat/lon."""
     headers = {'User-Agent': 'SimpleAgent/1.0'}
@@ -125,15 +126,16 @@ def geocode_location(location_query):
         return float(geo[0]['lat']), float(geo[0]['lon'])
     return None, None
 
+# Helper: Calculate straight-line distance (haversine formula)
 def haversine_distance(lat1, lon1, lat2, lon2):
-    """Calculate distance between two lat/lon points using Haversine formula."""
-    R = 3958.8  # miles
+    R = 3958.8
     dlat = math.radians(lat2 - lat1)
     dlon = math.radians(lon2 - lon1)
     a = math.sin(dlat/2)**2 + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon/2)**2
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
     return R * c
 
+# 🛠 Tool: Find distance between Raleigh and user location
 def calculate_distance_tool(destination_query):
     """Helper function for calculating distance from Raleigh, NC."""
     lat2, lon2 = geocode_location(destination_query)
@@ -150,7 +152,7 @@ def get_city_facts(location_name):
     ]
     completion = client.chat.completions.create(
         model="llama3.2",
-        messages=messages
+        messages=messages,
     )
     return completion.choices[0].message.content
 
@@ -179,10 +181,11 @@ def display_final_response(location, office_facts, city_facts, distance_miles):
     final_output = format_final_output(location, office_facts, city_facts, distance_miles)
     print(f"\n{GREEN}Assistant Final Response:{RESET}\n\n{BLUE}{final_output}{RESET}")
 
-# 🧑 Main Interactive Loop
+# 🧑 Main user interaction loop
 print("\nTravel Assistant ready! (Type 'exit' to quit)")
 
 while True:
+    # 🧑 User prompt
     user_input = input("\nUser: ")
     if user_input.lower() == "exit":
         print("Goodbye!")
