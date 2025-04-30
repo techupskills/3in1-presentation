@@ -58,9 +58,11 @@ travel_tools = [
 # 🧠 Index the uploaded offices.pdf into ChromaDB
 print("\nLoading and indexing PDF into ChromaDB...")
 pdf_text = ""
-with pdfplumber.open("offices.pdf") as pdf:
+with pdfplumber.open("../data/offices.pdf") as pdf:
     for page in pdf.pages:
         pdf_text += page.extract_text() + "\n"
+
+model = SentenceTransformer('sentence-transformers/all-mpnet-base-v2')
 
 # Create ChromaDB collection
 chroma_client = chromadb.Client()
@@ -88,7 +90,7 @@ def build_initial_messages(user_input, context_snippets):
 
 def search_vector_db(query):
     """Search ChromaDB for relevant office document snippets."""
-    results = collection.query(query_texts=[query], n_results=3)
+    results = collection.query(query_texts=[query], n_results=1)
     return results["documents"][0] if results["documents"] else []
 
 def extract_city_from_rag(snippets):
