@@ -2,13 +2,8 @@
 flowchart TD
     %% No classDefs needed for GitHub compatibility
 
-    subgraph Retrieval Phase
-        A1[User Prompt] --> A2[Search ChromaDB for Similar Documents]
-        A2 --> A3[Retrieve Top 3 Relevant Snippets]
-    end
-
     subgraph Reasoning Phase
-        B1[LLM Receives Prompt + Context]
+        B1[LLM Receives Prompt]
         B1 --> B2{LLM Decides if Tool Call is Needed}
     end
 
