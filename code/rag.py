@@ -55,7 +55,7 @@ travel_tools = [
     }
 ]
 
-# 🧠 Index the uploaded offices.pdf into ChromaDB
+#  Index the uploaded offices.pdf into ChromaDB
 print("\nLoading and indexing PDF into ChromaDB...")
 pdf_text = ""
 with pdfplumber.open("../data/offices.pdf") as pdf:
@@ -77,7 +77,7 @@ ids = [f"doc_{i}" for i in range(len(docs))]
 collection.add(documents=docs, ids=ids)
 print(f"Indexed {len(docs)} office documents.")
 
-# 🛠 Functions
+#  Functions
 
 def build_initial_messages(user_input, context_snippets):
     """Builds structured prompt with system context and user query."""
@@ -137,7 +137,7 @@ def haversine_distance(lat1, lon1, lat2, lon2):
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
     return R * c
 
-# 🛠 Tool: Find distance between Raleigh and user location
+#  Tool: Find distance between Raleigh and user location
 def calculate_distance_tool(destination_query):
     """Helper function for calculating distance from Raleigh, NC."""
     lat2, lon2 = geocode_location(destination_query)
@@ -183,11 +183,11 @@ def display_final_response(location, office_facts, city_facts, distance_miles):
     final_output = format_final_output(location, office_facts, city_facts, distance_miles)
     print(f"\n{GREEN}Assistant Final Response:{RESET}\n\n{BLUE}{final_output}{RESET}")
 
-# 🧑 Main user interaction loop
+#  Main user interaction loop
 print("\nTravel Assistant ready! (Type 'exit' to quit)")
 
 while True:
-    # 🧑 User prompt
+    #  User prompt
     user_input = input("\nUser: ")
     if user_input.lower() == "exit":
         print("Goodbye!")
