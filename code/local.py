@@ -25,14 +25,14 @@ system_prompt = (
     "Do not include any reasoning steps—only output the final 3 bullets."
 )
 
-# 🧑 Build the starting conversation with user input
+#  Build the starting conversation with user input
 def build_initial_messages(user_input):
     return [
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": user_input}
     ]
 
-# 🧠 Ask LLM for facts
+#  Ask LLM for facts
 def get_facts(messages):
     # note: no 'tools' passed
     return client.chat.completions.create(
@@ -40,14 +40,14 @@ def get_facts(messages):
         messages=messages
     )
 
-# ✨ Final user-visible output
+#  Final user-visible output
 def display_facts(completion):
     content = completion.choices[0].message.content.strip()
     # assume the model already formats bullets as "- fact"
     print(f"\n{GREEN}Here are 3 facts for you:{RESET}\n")
     print(f"{BLUE}{content}{RESET}")
 
-# 🧑 Main user interaction loop
+#  Main user interaction loop
 print("\nTravel Assistant ready! (Type 'exit' to quit)")
 
 while True:
