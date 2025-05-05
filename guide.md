@@ -7,6 +7,7 @@
 Follow the steps outlined in the [**README.md**](./README.md) file to get setup with your own [**codespace**](https://github.com/features/codespaces) environment to run the examples in. 
 
 The startup process should set you up with a Python runtime environment and download the llama3.2 AI model for you to use in the codespace.
+<br><br><br>
 
 **Part A. What's in this repository**
 
@@ -37,6 +38,7 @@ The startup process should set you up with a Python runtime environment and down
 **NOTE** If you run into issues with the Python environment or Ollama setup, you can try running these yourself.
 
 6. In the **images** directory are some images used in the various docs.
+<br><br><br>
 
 **Part B: Running the examples**
 
@@ -53,6 +55,7 @@ python <filename>.py
 ```
 
 4. At the prompt, you can ask the app about a particular location. If you are using the *RAG* example (rag.py), you can ask using a term or keyword that is in the PDF file.
+<br><br><br>
 
 **Part C: Seeing changes between files.**
 
@@ -69,6 +72,7 @@ code -d local.py agent.py
 cd code <if not there already>
 code -d agent.py rag.py
 ```
+<br><br><br>
 
 **Part D: Troubleshooting**
 
@@ -82,5 +86,7 @@ code -d agent.py rag.py
 <p align="center">
 **[END OF GUIDE]**
 </p>
+<p align="center">
+(c) 2025 Tech Skills Transformations & Brent Laster
 </br></br></br>
 
