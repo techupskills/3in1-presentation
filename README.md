@@ -16,9 +16,9 @@ This will run for a long time (10 or more minutes) while it gets everything read
 
 After the initial startup, it will run a script to setup the python environment, install needed python pieces, install Ollama, and then download the models we will use. This will take several more minutes to run. It will look like this while this is running.
 
-![Final prep](./images/aa39.png?raw=true "Final prep")
+![Final prep](./images/3in1b.png?raw=true "Final prep")
 
 The codespace is ready to use when you see a prompt like the one shown below in its terminal.
 
-![Ready to use](./images/aa2.png?raw=true "Ready to use")
+![Ready to use](./images/3in1c.png?raw=true "Ready to use")
 
