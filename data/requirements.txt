@@ -2,3 +2,4 @@ openai
 chromadb
 pdfplumber
 sentence_transformers
+requests
