@@ -54,7 +54,7 @@ travel_tools = [
     }
 ]
 
-# 🧑 Build the starting conversation with user input
+#  Build the starting conversation with user input
 def build_initial_messages(user_input):
     return [
         {"role": "system", "content": system_prompt},
@@ -79,7 +79,7 @@ def haversine_distance(lat1, lon1, lat2, lon2):
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
     return R * c
 
-# 🛠 Tool: Find distance between Raleigh and user location
+#  Tool: Find distance between Raleigh and user location
 def calculate_distance_tool(destination_query):
     """Helper function for calculating distance from Raleigh, NC."""
     lat2, lon2 = geocode_location(destination_query)
@@ -88,7 +88,7 @@ def calculate_distance_tool(destination_query):
     miles = haversine_distance(CURRENT_LAT, CURRENT_LON, lat2, lon2)
     return {"destination": destination_query, "distance_miles": round(miles, 2)}
 
-# 🧠 Ask LLM for initial action planning
+#  Ask LLM for initial action planning
 def get_initial_llm_response(messages):
     return client.chat.completions.create(
         model="llama3.2",
@@ -104,7 +104,7 @@ def print_assistant_thinking(completion):
 def tool_call_required(completion):
     return bool(completion.choices[0].message.tool_calls)
 
-# 🛠 Handle tool execution and capture results
+#  Handle tool execution and capture results
 def handle_tool_calls(completion, messages):
     for tool_call in completion.choices[0].message.tool_calls:
         name = tool_call.function.name
@@ -122,7 +122,7 @@ def handle_tool_calls(completion, messages):
         })
     return result
 
-# 🧠 After tool use, ask LLM for final answer
+#  After tool use, ask LLM for final answer
 def get_final_llm_response(messages):
     return client.chat.completions.create(
         model="llama3.2",
@@ -137,7 +137,7 @@ def format_final_output(location_name, facts_list, distance_miles):
     distance_section = f"{BOLD}{BLUE}\nDistance from Raleigh, NC: {RESET}{BLUE}{distance_miles} miles{RESET}"
     return f"{facts_section}{distance_section}"
 
-# ✨ Final user-visible formatted output
+#  Final user-visible formatted output
 def display_final_response(final_completion, tool_result):
     raw_output = final_completion.choices[0].message.content
     lines = raw_output.split('\n')
@@ -158,29 +158,29 @@ def display_final_response(final_completion, tool_result):
 def display_direct_response(completion):
     print(f"\n{GREEN}Assistant Final Response:{RESET}\n{BLUE}{completion.choices[0].message.content}{RESET}")
 
-# 🧑 Main user interaction loop
+#  Main user interaction loop
 print("\nTravel Assistant ready! (Type 'exit' to quit)")
 
 while True:
-    # 🧑 User prompt
+    #  User prompt
     user_input = input("\nUser: ")
     if user_input.lower() == "exit":
         print("Goodbye!")
         break
 
-    # 🧠 LLM plans tool call
+    #  LLM plans tool call
     messages = build_initial_messages(user_input)
     completion = get_initial_llm_response(messages)
     print_assistant_thinking(completion)
 
     if tool_call_required(completion):
-        # 🛠 Tool runs
+        #  Tool runs
         tool_result = handle_tool_calls(completion, messages)
 
-        # 🛠 Tool result added back into conversation
+        #  Tool result added back into conversation
         final_completion = get_final_llm_response(messages)
 
-        # 🧠 LLM reasons with tool output → ✨ Assistant final answer
+        #  LLM reasons with tool output → ✨ Assistant final answer
         display_final_response(final_completion, tool_result)
     else:
         display_direct_response(completion)
