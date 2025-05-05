@@ -4,11 +4,15 @@ Repository for ATO Meetup Examples
 
 These instructions will guide you through configuring a GitHub Codespaces environment that you can use to run the code if you want. 
 
-**1. Click on the button below to start a new codespace from this repository.**
+**1. If you want to have your own copy of this repository, you can fork it into your GitHub area via the **Fork** option at the top right.**
+
+
+
+**2. Click on the button below to start a new codespace from this repository.**
 
 Click here ➡️  [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/brentlaster/3in1?quickstart=1)
 
-**2. Then click on the option to create a new codespace.**
+**3. Then click on the option to create a new codespace.**
 
 ![Creating new codespace from button](./images/3in1a.png?raw=true "Creating new codespace from button")
 
