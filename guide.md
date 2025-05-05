@@ -13,22 +13,30 @@ The startup process should set you up with a Python runtime environment and down
 
 1. In this repository, you can find the example files shared at the meetup to do very simple illustrations of the concepts.
 
+<br>
+
 2. In the **code** directory are the 3 example files:
 
 - *local.py* - A simple app that connects to the locally running llama3.2 instance (served by Ollama) and allows you to prompt it. Type *exit* to exit.
 - *agent.py* - The simple app plus some extra tools for computing distance from a known location to illustrate how agents work.
 - *rag.py* - The agent app plus code to read in a PDF file, store it in a vector database, query it for a match, and then send that to the LLM. Illustrates how RAG works.
 
+<br>
+
 3. In the **charts** directory are 3 charts in [**Mermaid**](https://www.mermaidchart.com/) format. These are 3 flowcharts that are intended to help show the logic/flow of each example. (Some text may be cut off.)
 
 - *local.md* - corresponds to the local.py flow
 - *agent.md* - corresponds to the agent.py flow
 - *rag.md* - corresponds to the rag.py flow 
-   
+
+<br>
+
 4. In the **data** directory:
 
 - *offices.pdf* - pdf table with office location information for use as data in the rag.py example
 - *requirements.txt* - python dependencies to install
+
+<br>
 
 5. In the **scripts** directory:
 
@@ -37,6 +45,8 @@ The startup process should set you up with a Python runtime environment and down
 
 **NOTE** If you run into issues with the Python environment or Ollama setup, you can try running these yourself.
 
+<br>
+
 6. In the **images** directory are some images used in the various docs.
 <br><br><br>
 
@@ -44,15 +54,21 @@ The startup process should set you up with a Python runtime environment and down
 
 1. Get your codespace or local environment setup.
 
+<br>
+
 2. Change into the *code* subdirectory.
 ```
 cd code
 ```
 
+<br>
+
 3. Execute the code via python
 ```
 python <filename>.py
 ```
+
+<br>
 
 4. At the prompt, you can ask the app about a particular location. If you are using the *RAG* example (rag.py), you can ask using a term or keyword that is in the PDF file.
 <br><br><br>
@@ -66,6 +82,8 @@ cd code <if not there already>
 code -d local.py agent.py
 ```
 
+<br>
+
 2. To see the changes between the agent version and the rag version, you can use the following command iff you're in the codespace or if you are in a *VS Code* IDE environment.
 
 ```
@@ -78,10 +96,15 @@ code -d agent.py rag.py
 
 1. If you run into issues with running Python, try running the *scripts/pysetup.sh* script.
 
+<br>
+
 2. If you run into issues with Ollama not working, try running the *scripts/startOllama.sh* script. Note this is setup for Linux environments. If you need to run Ollama on a different platform, consult the documentation at Ollama.com.
+
+<br>
 
 3. If you can't see the Mermaid charts, install a Mermaid viewer. (The Codespace already includes an installed extension for this.)
 
+<br>
 
 <p align="center">
 **[END OF GUIDE]**
