@@ -6,11 +6,15 @@ These instructions will guide you through configuring a GitHub Codespaces enviro
 
 **1. If you want to have your own copy of this repository, you can fork it into your GitHub area via the **Fork** option at the top right.**
 
+![Forking repository](./images/3in1d.png?raw=true "Forking repository")
 
+<br><br>
 
 **2. Click on the button below to start a new codespace from this repository.**
 
 Click here ➡️  [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/brentlaster/3in1?quickstart=1)
+
+<br><br>
 
 **3. Then click on the option to create a new codespace.**
 
