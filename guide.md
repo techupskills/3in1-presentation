@@ -70,7 +70,12 @@ python <filename>.py
 
 <br>
 
-4. At the prompt, you can ask the app about a particular location. If you are using the *RAG* example (rag.py), you can ask using a term or keyword that is in the PDF file.
+4. At the prompt, you can ask the app about a particular location. If you are using the *RAG* example (rag.py), you can ask using a term or keyword that is in the PDF file. (Examples shown below.)
+
+![Running the agent example](./images/3in1f.png?raw=true "Running the agent example")
+
+![Running the rag example](./images/3in1e.png?raw=true "Running the rag example")
+
 <br><br><br>
 
 **Part C: Seeing changes between files.**
