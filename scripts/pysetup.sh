@@ -8,4 +8,8 @@ python3 -m venv ./$PYTHON_ENV  \
 
 source ./$PYTHON_ENV/bin/activate
 
-pip3 install -r data/requirements.txt
+if [ -f "./requirements.txt" ]; then
+  pip3 install -r "./requirements.txt"
+else
+  pip3 install -r "/workspaces/3in1-presentation/data/requirements.txt"
+fi
